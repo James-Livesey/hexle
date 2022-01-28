@@ -1,0 +1,301 @@
+:root {
+    --correct: #6aaa64;
+    --correctText: white;
+    --almost: #c9b458;
+    --almostText: white;
+    --notQuite: #787c7e;
+    --notQuiteText: white;
+    --notYet: #d8d8d8;
+    --notYetText: black;
+}
+
+* {
+    font-family: system-ui, sans-serif;
+    box-sizing: border-box;
+}
+
+a {
+    color: var(--correct);
+}
+
+hr {
+    height: 0.2rem;
+    background-color: var(--notYet);
+    border: none;
+}
+
+details {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+details summary {
+    cursor: pointer;
+}
+
+main {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+hexle-board {
+    display: block;
+    width: 50%;
+    min-width: 200px;
+    margin: auto;
+}
+
+hexle-row {
+    display: flex;
+}
+
+hexle-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    margin: 3px;
+    color: transparent;
+    border: 2px solid var(--notYet);
+    text-transform: uppercase;
+}
+
+hexle-cell[hexle-state="correct"], hexle-cell[hexle-state="almost"], hexle-cell[hexle-state="notQuite"] {
+    transform: rotateX(360deg);
+    animation: flip 0.5s forwards;
+    animation-timing-function: ease-in-out;
+    transition: 0.01s background-color ease 0.3s, 0.01s color ease 0.3s, 0.01s border ease 0.3s;
+}
+
+hexle-cell[hexle-state="correct"] {
+    background-color: var(--correct);
+    color: var(--correctText);
+    border: 2px solid transparent;
+}
+
+hexle-cell[hexle-state="almost"] {
+    background-color: var(--almost);
+    color: var(--almostText);
+    border: 2px solid transparent;
+}
+
+hexle-cell[hexle-state="notQuite"] {
+    background-color: var(--notQuite);
+    color: var(--notQuiteText);
+    border: 2px solid transparent;
+}
+
+hexle-cell[hexle-state="input"] {
+    border: 2px solid var(--notQuite);
+    color: black;
+}
+
+hexle-input {
+    display: block;
+    width: 50%;
+    min-width: 200px;
+    margin: auto;
+}
+
+hexle-input button {
+    width: 100%;
+    margin: 3px;
+    background-color: var(--notYet);
+    color: var(--notYetText);
+    text-transform: uppercase;
+}
+
+hexle-input button[hexle-state="notQuite"] {
+    width: 100%;
+    margin: 3px;
+    background-color: var(--notQuite);
+    color: var(--notQuiteText);
+}
+
+hexle-input button[hexle-state="almost"] {
+    width: 100%;
+    margin: 3px;
+    background-color: var(--almost);
+    color: var(--almostText);
+}
+
+hexle-input button[hexle-state="correct"] {
+    width: 100%;
+    margin: 3px;
+    background-color: var(--correct);
+    color: var(--correctText);
+}
+
+main[hexle-state~="finished"] hexle-input {
+    display: none;
+}
+
+h1 small {
+    font-size: 0.5em;
+}
+
+#hexleNumber {
+    font-size: 0.5em;
+    color: var(--notQuite);
+}
+
+#options {
+    float: right;
+}
+
+#options a {
+    margin: -0.2em;
+    margin-top: -0.4em;
+    padding: 0.2em;
+    padding-top: 0.4em;
+    color: black;
+    text-decoration: none;
+}
+
+#options a:hover {
+    background-color: var(--notYet);
+}
+
+#options img {
+    position: relative;
+    top: 0.1em;
+    height: 1em;
+}
+
+#hint {
+    text-align: center;
+}
+
+main[hexle-state~="finished"] #hint {
+    display: none;
+}
+
+#entry {
+    width: 0;
+    height: 0;
+    border: none;
+    outline: none;
+}
+
+main[hexle-state~="finished"] #entry {
+    display: none;
+}
+
+main[hexle-state~="playing"] #instructions, main[hexle-state~="finished"] #instructions {
+    display: none;
+}
+
+#inputControls {
+    display: flex;
+    width: 50%;
+    min-width: 200px;
+    margin: auto;
+}
+
+#inputControls button {
+    flex-grow: 1;
+    margin: 3px;
+    background-color: transparent;
+    color: inherit;
+}
+
+#inputControls button:active {
+    background-color: var(--notYet);
+    color: var(--notYetText);
+}
+
+main[hexle-state~="finished"] #inputControls {
+    display: none;
+}
+
+#result {
+    text-align: center;
+}
+
+main:not([hexle-state~="finished"]) #result {
+    display: none;
+}
+
+#streakLabel {
+    color: var(--almost);
+    font-size: 1.2em;
+}
+
+main[hexle-state~="lost"] #streakLabel {
+    display: none;
+}
+
+#streakLabel p {
+    margin: 0;
+}
+
+main[hexle-state~="lost"] #shareButton {
+    display: none;
+}
+
+button {
+    background-color: var(--correct);
+    color: var(--correctText);
+    font-size: 1rem;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+#shareButton {
+    margin-top: 0.5rem;
+}
+
+#toast {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: 80vw;
+    margin: auto;
+    padding: 0.5rem;
+    background-color: var(--notQuite);
+    color: var(--notQuiteText);
+    font-size: 1.2rem;
+    opacity: 0;
+    box-shadow: 0px 5px 20px -5px black;
+    pointer-events: none;
+    transition: 0.5s opacity;
+}
+
+#toast.show {
+    opacity: 1;
+}
+
+#badges {
+    position: fixed;
+    bottom: 0;
+    right: 5px;
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    50% {
+        transform: rotateX(90deg);
+    }
+
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+@media (max-width: 500px) {
+    #badges {
+        display: none;
+    }
+}

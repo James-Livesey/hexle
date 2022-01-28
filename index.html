@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hexle</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="description" content="A Wordle-like game where you have to guess the unsigned 8-bit binary number!">
+        <link rel="shortcut icon" href="media/icon.png">
+        <link rel="stylesheet" href="style.css">
+        <script type="module" src="script.js"></script>
+    </head>
+    <body>
+        <main>
+            <div id="options">
+                <a href="about.html" title="Learn more" aria-label="Learn more"><img src="media/info.svg" alt=""></a>
+            </div>
+            <h1>Hexle<small>, the Bytle successor</small> <span id="hexleNumber"></span></h1>
+            <hexle-board></hexle-board>
+            <p id="hint"></p>
+            <input pattern="[0-9a-fA-F]*" id="entry">
+            <hexle-input></hexle-input>
+            <div id="inputControls">
+                <button id="inputDelete">DEL</button>
+                <button id="inputEnter">ENTER</button>
+            </div>
+            <div id="instructions">
+                <ol>
+                    <li value="0">Guess the <strong>base-10</strong> (denary) number (for example, 89)</li>
+                    <li value="1">It'll be converted into binary and shown on a row on the game board</li>
+                    <li value="2">The binary digits you got in the right place are 🟩, almost in the right place are 🟨, and wrong are ⬜</li>
+                    <li value="3">Repeat until you get a row that's all 🟩</li>
+                </ol>
+            </div>
+            <div id="result">
+                <h2>I think you may be a cheater!</h2>
+                <p id="comment">I see you, DevTools user...</p>
+                <div id="streakLabel">
+                    <p>Win streak: <strong id="streak"></strong></p>
+                    <small>Win the game every day to keep up your streak!</small>
+                </div>
+                <button id="shareButton">Share</button>
+            </div>
+        </main>
+        <div id="toast"></div>
+        <div id="badges">
+            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fjamesl.me%2Fhexle&count_bg=%236AAA64&icon=&icon_color=%23E7E7E7&title=players+today+%2F+ever&edge_flat=false" alt="Player hit counter" title="thx hits.seeyoufarm.com!">
+            <a href="https://github.com/James-Livesey/hexle" target="_blank">
+                <img src="https://badgen.net/badge/star%20on/github/yellow?icon=github" alt="Star on GitHub">
+            </a>
+        </div>
+    </body>
+</html>
