@@ -256,6 +256,7 @@ button {
     top: 4rem;
     left: 0;
     right: 0;
+    width: 80vw;
     width: -moz-fit-content;
     width: fit-content;
     max-width: 80vw;
