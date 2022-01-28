@@ -343,8 +343,6 @@ window.addEventListener("load", function() {
 
     document.querySelector("#hexleNumber").textContent = "#" + getHexleNumber().toString(BASE).padStart(WORD_LENGTH, "0");
 
-    entry.focus();
-
     generateTargetNumber();
     generateBoard();
     generateInput();
