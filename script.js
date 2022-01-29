@@ -21,6 +21,10 @@ export var almostKeys = [];
 export var triedKeys = [];
 export var finishedGame = false;
 
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [null, ""])[1].replace(/\+/g, "%20")) || null;
+}
+
 function setCellContents(cell, contents) {
     cell.innerHTML = "";
 
@@ -288,7 +292,8 @@ export function updateEntry() {
 }
 
 export function copyGameToClipboard() {
-    var contents = `jamesl.me/hexle ${getHexleNumber().toString(BASE).padStart(WORD_LENGTH, "0").toUpperCase()} ${currentRow.toString(BASE).toUpperCase()}/6\n\n`;
+    var contents = `#Hexle ${getHexleNumber().toString(BASE).padStart(WORD_LENGTH, "0").toUpperCase()} ${currentRow.toString(BASE).toUpperCase()}/6\n\n`;
+    var encodedFormat = "";
 
     for (var i = 0; i < currentRow; i++) {
         var cells = document.querySelectorAll("hexle-row")[i].querySelectorAll("hexle-cell");
@@ -297,14 +302,17 @@ export function copyGameToClipboard() {
             switch (cell.getAttribute("hexle-state")) {
                 case "correct":
                     contents += "🟩";
+                    encodedFormat += "2";
                     break;
 
                 case "almost":
                     contents += "🟨";
+                    encodedFormat += "1";
                     break;
 
                 default:
                     contents += "⬜";
+                    encodedFormat += "0";
                     break;
             }
         });
@@ -314,6 +322,8 @@ export function copyGameToClipboard() {
         }
     }
 
+    contents += `\n\n${window.location.href}/?game=${parseInt(encodedFormat, 3).toString(16)}&n=${getHexleNumber()}`;
+
     navigator.clipboard.writeText(contents);
 
     shareButton.textContent = "Copied to clipboard!";
@@ -321,6 +331,26 @@ export function copyGameToClipboard() {
     setTimeout(function() {
         shareButton.textContent = "Share";
     }, 2_000);
+}
+
+export function loadSharedGame() {
+    var game = getURLParameter("game");
+
+    if (game == null) {
+        return;
+    }
+
+    finishedGame = true;
+
+    parseInt(game, 16).toString(3).split("").forEach(function(cell, i) {
+        var element = document.querySelectorAll("hexle-row")[Math.floor(i / WORD_LENGTH)].querySelectorAll("hexle-cell")[i % WORD_LENGTH];
+
+        setCellState(element, {"0": "notQuite", "1": "almost", "2": "correct"}[cell]);
+    });
+
+    document.querySelector("main").setAttribute("hexle-state", "shared");
+
+    document.querySelector("#hexleNumber").textContent = "#" + Number(getURLParameter("n") || getHexleNumber()).toString(BASE).padStart(WORD_LENGTH, "0").toUpperCase();
 }
 
 export function switchColourblindMode(colourblind = null) {
@@ -369,6 +399,8 @@ window.addEventListener("load", function() {
     adjustCells();
 
     switchColourblindMode(localStorage.getItem("hexle_colourblindMode") == "true");
+
+    loadSharedGame();
 
     document.querySelector("#hint").textContent = `Hint: highest digit minus lowest digit = ${getHint().toString(BASE).toUpperCase()}`;
 
@@ -449,6 +481,10 @@ window.addEventListener("load", function() {
 
     document.querySelector("#switchColourblindMode").addEventListener("click", function() {
         switchColourblindMode();
+    });
+
+    document.querySelector("#playButton").addEventListener("click", function() {
+        window.location.href = window.location.href.split("?")[0];
     });
 });
 
