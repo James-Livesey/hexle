@@ -161,8 +161,8 @@ export function setStreak(won = false) {
 }
 
 export function checkCurrentRow(animate = true) {
-    var lastEntry = previousEntries[previousEntries.length - 1];
-    var targetEntry = targetNumber.toString(BASE).padStart(WORD_LENGTH, "0").split("");
+    var lastEntry = previousEntries[previousEntries.length - 1].toUpperCase();
+    var targetEntry = targetNumber.toString(BASE).padStart(WORD_LENGTH, "0").toUpperCase().split("");
     var states = new Array(WORD_LENGTH).fill("notQuite");
 
     var pool = {};
@@ -260,7 +260,7 @@ export function acceptEntry(value = entry.value, save = true, animate = true) {
         }
 
         document.querySelector("#result h2").textContent = "You got it!";
-        document.querySelector("#result #comment").textContent = `You found today's Hexle in ${currentRow.toString(BASE)} tries. Don't forget to come back tomorrow for another game!`;
+        document.querySelector("#result #comment").textContent = `You found today's Hexle in ${currentRow.toString(BASE).toUpperCase()} tries. Don't forget to come back tomorrow for another game!`;
         document.querySelector("#result #streak").textContent = streak == 1 ? "1 day" : `${streak} days`;
 
         main.setAttribute("hexle-state", "finished won");
@@ -272,7 +272,7 @@ export function acceptEntry(value = entry.value, save = true, animate = true) {
         }
 
         document.querySelector("#result h2").textContent = "Not today!";
-        document.querySelector("#result p").textContent = `You have run out of tries! Today's Hexle answer is ${targetNumber.toString(BASE).padStart(WORD_LENGTH, "0")}. Come back tomorrow for another game!`;
+        document.querySelector("#result p").textContent = `You have run out of tries! Today's Hexle answer is ${targetNumber.toString(BASE).padStart(WORD_LENGTH, "0").toUpperCase()}. Come back tomorrow for another game!`;
 
         main.setAttribute("hexle-state", "finished lost");
     }
@@ -288,7 +288,7 @@ export function updateEntry() {
 }
 
 export function copyGameToClipboard() {
-    var contents = `jamesl.me/hexle ${getHexleNumber().toString(BASE).padStart(WORD_LENGTH, "0")} ${currentRow.toString(BASE)}/6\n\n`;
+    var contents = `jamesl.me/hexle ${getHexleNumber().toString(BASE).padStart(WORD_LENGTH, "0").toUpperCase()} ${currentRow.toString(BASE).toUpperCase()}/6\n\n`;
 
     for (var i = 0; i < currentRow; i++) {
         var cells = document.querySelectorAll("hexle-row")[i].querySelectorAll("hexle-cell");
@@ -341,14 +341,14 @@ window.addEventListener("load", function() {
     shareButton = document.querySelector("#shareButton");
     toast = document.querySelector("#toast");
 
-    document.querySelector("#hexleNumber").textContent = "#" + getHexleNumber().toString(BASE).padStart(WORD_LENGTH, "0");
+    document.querySelector("#hexleNumber").textContent = "#" + getHexleNumber().toString(BASE).padStart(WORD_LENGTH, "0").toUpperCase();
 
     generateTargetNumber();
     generateBoard();
     generateInput();
     adjustCells();
 
-    document.querySelector("#hint").textContent = `Hint: highest digit minus lowest digit = ${getHint().toString(16)}`;
+    document.querySelector("#hint").textContent = `Hint: highest digit minus lowest digit = ${getHint().toString(BASE).toUpperCase()}`;
 
     if (Number(localStorage.getItem("hexle_number")) != getHexleNumber()) {
         localStorage.removeItem("hexle_currentGame");
