@@ -301,12 +301,12 @@ export function copyGameToClipboard() {
         cells.forEach(function(cell) {
             switch (cell.getAttribute("hexle-state")) {
                 case "correct":
-                    contents += "🟩";
+                    contents += document.querySelector("html").classList.contains("colourblindMode") ? "🟧" : "🟩";
                     encodedFormat += "2";
                     break;
 
                 case "almost":
-                    contents += "🟨";
+                    contents += document.querySelector("html").classList.contains("colourblindMode") ? "🟦" : "🟨";
                     encodedFormat += "1";
                     break;
 

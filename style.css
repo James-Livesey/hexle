@@ -16,6 +16,14 @@ html.colourblindMode {
     --almostText: white;
 }
 
+html.colourblindMode .notColourblind {
+    display: none;
+}
+
+html:not(.colourblindMode) .colourblind {
+    display: none;
+}
+
 * {
     font-family: system-ui, sans-serif;
     box-sizing: border-box;
