@@ -322,7 +322,7 @@ export function copyGameToClipboard() {
         }
     }
 
-    contents += `\n\n${window.location.href}/?game=${parseInt(encodedFormat, 3).toString(16)}&n=${getHexleNumber()}`;
+    contents += `\n\n${window.location.href}?game=${parseInt(encodedFormat, 3).toString(16)}&n=${getHexleNumber()}`;
 
     navigator.clipboard.writeText(contents);
 
