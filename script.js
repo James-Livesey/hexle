@@ -340,12 +340,15 @@ export function loadSharedGame() {
         return;
     }
 
+    var decodedGame = parseInt(game, 16).toString(3);
+    var turns = Math.ceil(decodedGame.length / WORD_LENGTH);
+
     finishedGame = true;
 
-    parseInt(game, 16).toString(3).split("").forEach(function(cell, i) {
+    decodedGame.padStart(WORD_LENGTH * turns, "0").split("").forEach(function(cell, i) {
         var element = document.querySelectorAll("hexle-row")[Math.floor(i / WORD_LENGTH)].querySelectorAll("hexle-cell")[i % WORD_LENGTH];
 
-        setCellState(element, {"0": "notQuite", "1": "almost", "2": "correct"}[cell]);
+        setCellState(element, {"0": "notQuite", "1": "almost", "2": "correct", " ": "notYet"}[cell]);
     });
 
     document.querySelector("main").setAttribute("hexle-state", "shared");
