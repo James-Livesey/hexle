@@ -12,6 +12,7 @@
     <body>
         <main>
             <div id="options">
+                <a href="javascript:void(0);" title="Colourblind-friendly mode" aria-label="Colourblind-friendly mode" id="switchColourblindMode"><img src="media/scheme.svg" alt=""></a>
                 <a href="about.html" title="Learn more" aria-label="Learn more"><img src="media/info.svg" alt=""></a>
             </div>
             <h1>Hexle<small>, the <a href="https://jamesl.me/bytle/" target="_blank">Bytle</a> successor</small> <span id="hexleNumber"></span></h1>
@@ -26,8 +27,10 @@
             <div id="instructions">
                 <ol>
                     <li value="0">Guess the hexadecimal number</li>
-                    <li>The hexadecimal digits you got in the right place are 🟩, almost in the right place are 🟨, and wrong are ⬜</li>
-                    <li >Repeat until you get a row that's all 🟩</li>
+                    <li class="notColourblind">The hexadecimal digits you got in the right place are 🟩, almost in the right place are 🟨, and wrong are ⬜</li>
+                    <li class="colourblind">The hexadecimal digits you got in the right place are 🟧, almost in the right place are 🟦, and wrong are ⬜</li>
+                    <li class="notColourblind">Repeat until you get a row that's all 🟩</li>
+                    <li class="colourblind">Repeat until you get a row that's all 🟧</li>
                 </ol>
             </div>
             <div id="result">
@@ -38,6 +41,11 @@
                     <small>Win the game every day to keep up your streak!</small>
                 </div>
                 <button id="shareButton">Share</button>
+            </div>
+            <div id="sharedInfo">
+                <h2>Want to play Hexle yourself?</h2>
+                <p>Play today's Hexle and share your result, too!</p>
+                <button id="playButton">Play Hexle</button>
             </div>
         </main>
         <div id="toast"></div>

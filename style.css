@@ -9,6 +9,21 @@
     --notYetText: black;
 }
 
+html.colourblindMode {
+    --correct: #f5793a;
+    --correctText: white;
+    --almost: #85c0f9;
+    --almostText: white;
+}
+
+html.colourblindMode .notColourblind {
+    display: none;
+}
+
+html:not(.colourblindMode) .colourblind {
+    display: none;
+}
+
 * {
     font-family: system-ui, sans-serif;
     box-sizing: border-box;
@@ -129,7 +144,7 @@ hexle-input button[hexle-state="correct"] {
     color: var(--correctText);
 }
 
-main[hexle-state~="finished"] hexle-input {
+main[hexle-state~="finished"] hexle-input, main[hexle-state~="shared"] hexle-input {
     display: none;
 }
 
@@ -169,7 +184,7 @@ h1 small {
     text-align: center;
 }
 
-main[hexle-state~="finished"] #hint {
+main[hexle-state~="finished"] #hint, main[hexle-state~="shared"] #hint {
     display: none;
 }
 
@@ -180,11 +195,11 @@ main[hexle-state~="finished"] #hint {
     outline: none;
 }
 
-main[hexle-state~="finished"] #entry {
+main[hexle-state~="finished"] #entry, main[hexle-state~="shared"] #entry {
     display: none;
 }
 
-main[hexle-state~="playing"] #instructions, main[hexle-state~="finished"] #instructions {
+main[hexle-state~="playing"] #instructions, main[hexle-state~="finished"] #instructions, main[hexle-state~="shared"] #instructions {
     display: none;
 }
 
@@ -207,7 +222,7 @@ main[hexle-state~="playing"] #instructions, main[hexle-state~="finished"] #instr
     color: var(--notYetText);
 }
 
-main[hexle-state~="finished"] #inputControls {
+main[hexle-state~="finished"] #inputControls, main[hexle-state~="shared"] #inputControls {
     display: none;
 }
 
@@ -215,7 +230,7 @@ main[hexle-state~="finished"] #inputControls {
     text-align: center;
 }
 
-main:not([hexle-state~="finished"]) #result {
+main:not([hexle-state~="finished"]) #result, main[hexle-state~="shared"] #result {
     display: none;
 }
 
@@ -234,6 +249,15 @@ main[hexle-state~="lost"] #streakLabel {
 
 main[hexle-state~="lost"] #shareButton {
     display: none;
+}
+
+#sharedInfo {
+    display: none;
+    text-align: center;
+}
+
+main[hexle-state~="shared"] #sharedInfo {
+    display: block;
 }
 
 button {
