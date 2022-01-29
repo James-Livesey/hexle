@@ -9,6 +9,13 @@
     --notYetText: black;
 }
 
+html.colourblindMode {
+    --correct: #f5793a;
+    --correctText: white;
+    --almost: #85c0f9;
+    --almostText: white;
+}
+
 * {
     font-family: system-ui, sans-serif;
     box-sizing: border-box;

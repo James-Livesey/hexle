@@ -323,6 +323,26 @@ export function copyGameToClipboard() {
     }, 2_000);
 }
 
+export function switchColourblindMode(colourblind = null) {
+    if (colourblind == null) {
+        document.querySelector("html").classList.toggle("colourblindMode");
+        console.log(document.querySelector("html").classList.contains("colourblindMode"));
+        localStorage.setItem("hexle_colourblindMode", document.querySelector("html").classList.contains("colourblindMode"));
+
+        return;
+    }
+
+    if (colourblind) {
+        document.querySelector("html").classList.add("colourblindMode");
+        localStorage.setItem("hexle_colourblindMode", true);
+
+        return;
+    }
+
+    document.querySelector("html").classList.remove("colourblindMode");
+    localStorage.setItem("hexle_colourblindMode", false);
+}
+
 function adjustCells() {
     var firstCell = document.querySelector("hexle-cell");
     var width = firstCell.clientWidth;
@@ -347,6 +367,8 @@ window.addEventListener("load", function() {
     generateBoard();
     generateInput();
     adjustCells();
+
+    switchColourblindMode(localStorage.getItem("hexle_colourblindMode") == "true");
 
     document.querySelector("#hint").textContent = `Hint: highest digit minus lowest digit = ${getHint().toString(BASE).toUpperCase()}`;
 
@@ -423,6 +445,10 @@ window.addEventListener("load", function() {
 
     document.querySelector("#inputEnter").addEventListener("click", function() {
         acceptEntry();
+    });
+
+    document.querySelector("#switchColourblindMode").addEventListener("click", function() {
+        switchColourblindMode();
     });
 });
 
