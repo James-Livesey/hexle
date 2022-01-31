@@ -322,7 +322,7 @@ export function copyGameToClipboard() {
         }
     }
 
-    contents += `\n\n${window.location.href}?game=${parseInt(encodedFormat, 3).toString(16)}&n=${getHexleNumber()}`;
+    contents += `\n\n${window.location.href}?game=${encodeURIComponent(parseInt(encodedFormat, 3).toString(16))}&t=${encodeURIComponent(currentRow)}&n=${encodeURIComponent(getHexleNumber())}`;
 
     navigator.clipboard.writeText(contents);
 
@@ -341,7 +341,7 @@ export function loadSharedGame() {
     }
 
     var decodedGame = parseInt(game, 16).toString(3);
-    var turns = Math.ceil(decodedGame.length / WORD_LENGTH);
+    var turns = getURLParameter("t") || Math.ceil(decodedGame.length / WORD_LENGTH);
 
     finishedGame = true;
 
